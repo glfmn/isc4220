@@ -45,9 +45,13 @@ xs = min:step:max; % Define domain for interest function
 ys = zeros(size(P_max,2),size(xs,2)); % Preallocate range to optimize
 
 hold on;
-for n=1:6,
-    f2 = @(x) payment(100000,months, n*100 + 400, x);
-    f2_root = bisection(f2,0,1,10^-4);
-    plot(xs, f2(xs), f2_root, f2(f2_root),'r');
+for n=1:size(P_max,2),
+    payment_ = @(xs) payment(100000,months,P_max(n),xs);
+    % Define new payment function with one variable to pass into bisection
+
+    ys(n,:) = payment_(xs);
+    maxI_m(n) = bisection(payment_,min,max,10^-6);
+    
+    plot(xs, ys(n,:), maxI_m(n), payment_(maxI_m(n)),'*r')
 end
 hold off;
