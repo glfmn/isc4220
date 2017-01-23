@@ -33,11 +33,16 @@ plot(xs,ys,'b',f1_root,f1(f1_root),'or')
 payment = @(L, n, Pmax, i_m) ...
     Pmax - L .* (i_m.*(1+i_m).^n) ./ ((1+i_m).^n - 1);
 
-years = 15; % period of the loan in years
-months = 15 * 12;
+P_max = 500:100:1000;
 
-xs = 0:0.00001:0.001;
-ys = zeros(size(xs));
+months = 15 * 12; % period of the loan in months
+
+min  = -0.002;
+step =  0.0001;
+max  =  0.01;
+
+xs = min:step:max; % Define domain for interest function
+ys = zeros(size(P_max,2),size(xs,2)); % Preallocate range to optimize
 
 hold on;
 for n=1:6,
