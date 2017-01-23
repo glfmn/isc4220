@@ -16,7 +16,7 @@ while abs(a-b) > abs(tol) % Iterate until interval is sufficiently small
     iter = iter + 1;
 
     xst = newX(a,b); % Claculate midpoint of the interval
-    choice = func(a)*func(xst); % Determine sign difference at a and xst
+    choice = func(a).*func(xst); % Determine sign difference at a and xst
 
     if (choice <  0), b = xst; end % Root is in [a, xst]
     if (choice == 0), break;   end % Exit, root was found
