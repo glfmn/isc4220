@@ -2,7 +2,7 @@
 % Implements a bisection library function and then uses it to solve some
 % example problems to get a better sense of the process required to find
 % roots with the bisection method.
-%
+%%%
 % *Gwen Zapata*
 % *ISC4220C*
 %%
@@ -26,7 +26,7 @@ plot(xs,ys,'b',f1_root,f1(f1_root),'or')
 %
 % $$ P = L\frac{i_m(1+i_m)^n}{(1+1_m)^n-1} $$ 
 % We can express this function as
-% $$ P = P_max - L\frac{i_m(1+i_m)^n}{(1+1_m)^n-1} $$ 
+% $$ P = P_{max} - L\frac{i_m(1+i_m)^n}{(1+1_m)^n-1} $$ 
 % so that the value of the function is zero when the monthly payment is
 % equal to the maximum monthly payment.
 

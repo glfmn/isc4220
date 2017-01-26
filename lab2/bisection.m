@@ -19,9 +19,8 @@ while abs(a-b) > abs(tol) % Iterate until interval is sufficiently small
     choice = func(a).*func(xst); % Determine sign difference at a and xst
 
     if (choice <  0), b = xst; end % Root is in [a, xst]
-    if (choice == 0), break;   end % Exit, root was found
+    if (choice == 0), break;   end % Exit, root was found in macheps
     if (choice >  0), a = xst; end % Root is in [xst, b]
 end
-
 
 end
