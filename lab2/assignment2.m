@@ -54,4 +54,8 @@ for n=1:size(P_max,2),
     
     plot(xs, ys(n,:), maxI_m(n), payment_(maxI_m(n)),'*r')
 end
+
+title('Maximum Interest Rate');
+xlabel('Monthly Interest Rate');
+ylabel('P_{max} - P_{monthly}');
 hold off;
