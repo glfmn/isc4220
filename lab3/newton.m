@@ -21,5 +21,14 @@ if nargin < 5, maxit = 25;    end
 if nargin < 4, tol   = 10^-6; end
 if nargin < 3, x     = 0;     end
 
+% Define convergence criteria
+converge = @(val) abs(tol) > abs(f(val)) >= 0;
+
+% Implement Newton's Method in terms of f, x_i, and df/dx.
+newt = @(x) x - f(x) - df(x);
+
+for i=1:maxit
+    if converge(x), break; end
+    x = newt(x);
 end
 
