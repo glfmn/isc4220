@@ -56,7 +56,7 @@ for n=1:size(P_max,2),
     % Define new payment function with one variable to pass into bisection
 
     ys(n,:) = payment_(xs);
-    maxI_m(n) = bisection(payment_,min,max,10^-6);
+    maxI_m(n) = bisection(payment_,min,max,10^-4);
     
     plot(xs, ys(n,:), maxI_m(n), payment_(maxI_m(n)),'*r')
 end
