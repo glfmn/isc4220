@@ -29,9 +29,12 @@ xlabel('x');
 % Given a maximum monthly payment of $800, and a loan period of five years,
 % what is the maximum interest rate for the loan?
 %
-% $$ P = L\frac{i_m(1+i_m)^n}{(1+1_m)^n-1} $$ 
+% $$ P = L\frac{i_m(1+i_m)^n}{(1+1_m)^n-1} $$
+%
 % We can express this function as
-% $$ P = P_{max} - L\frac{i_m(1+i_m)^n}{(1+1_m)^n-1} $$ 
+%
+% $$ P = P_{max} - L\frac{i_m(1+i_m)^n}{(1+1_m)^n-1} $$
+%
 % so that the value of the function is zero when the monthly payment is
 % equal to the maximum monthly payment.
 
