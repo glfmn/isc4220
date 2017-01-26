@@ -44,6 +44,7 @@ max  =  0.01;
 xs = min:step:max; % Define domain for interest function
 ys = zeros(size(P_max,2),size(xs,2)); % Preallocate range to optimize
 
+figure;
 hold on;
 for n=1:size(P_max,2),
     payment_ = @(xs) payment(100000,months,P_max(n),xs);
