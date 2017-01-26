@@ -15,10 +15,15 @@ f1 = @(x) tan(x) - 1./(1+x.^2);
 
 f1_root = bisection(f1,0,1,10^-4)
 
-% Plot the function to visually inspect result
+% Evaluate and plot the function to visually inspect result
 xs = 0:0.1:f1_root*2;
 ys = f1(xs);
+
 plot(xs,ys,'b',f1_root,f1(f1_root),'or')
+
+title('Root Finding: $0=\tan(x)-\frac{1}{1+x^2}$','interpreter','latex');
+ylabel('$tan(x)-\frac{1}{1+x^2}$','interpreter','latex');
+xlabel('x');
 
 %% Maximum Interest Rate
 % Given a maximum monthly payment of $800, and a loan period of five years,
