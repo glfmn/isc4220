@@ -47,5 +47,16 @@ f = @(x) ln(x);
 g = @(x) 25.*x.^2 - 6.*x.^2 + 7.*x - 88;
 
 %% Newton's Method vs Bisection: $$ f{x} = 1 + \sin{x} $$
+% Bisection fails for problems that do not cross the origin or the
+% horizontal line at the desired value.  Newton's method will converge
+% linearly; its convergence rate has decreased from quadratic to linear
+% because the intercept has zero slope.
 
-f = @(x) 1 + sin(x);
+clear
+
+f  = @(x) 1 + sin(x);
+df = @(x) cos(x);
+
+
+[root, its] = newton(f, df, 0)
+f(root)
