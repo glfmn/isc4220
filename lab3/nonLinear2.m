@@ -24,6 +24,7 @@ df = @(x) 2*x;
 root = newton(f, df, 1, 10^-4); % approximate value of 2^(1/2)
 true_err = abs(2^(1/2)-root);
 fprintf('\napproximation of 2^(1/2) =\n\n    %g\n\n\n',root);
+fprintf('\nfzero of f(x) =\n\n    %g\n\n\n',fzero(f,1));
 fprintf('true error =\n\n    %g\n\n\n',true_err);
 
 f  = @(x) x^5 - 5;
@@ -32,6 +33,7 @@ df = @(x) 5*x.^4;
 root = newton(f, df, 1, 10^-4); % approximate value of 5^(1/5)
 true_err = abs(5^(1/5)-root);
 fprintf('approximation of 5^(1/5) =\n\n    %g\n\n\n',root);
+fprintf('\nfzero of f(x) =\n\n    %g\n\n\n',fzero(f,1));
 fprintf('true error =\n\n    %g\n\n\n',true_err);
 
 %% Calculating $$ \pi $$
