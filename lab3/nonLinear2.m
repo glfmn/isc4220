@@ -41,12 +41,42 @@ fprintf('true error =\n\n    %g\n\n\n',true_err);
 %
 % $$ 16\tan^{-1}{\frac{1}{5}} - 4\tan^{-1}{\frac{1}{239}} $$
 
-n = 1:2:7;
+clear
 
 %% Roots of $$ f{x} = \ln{x} $$ and $$ g{x} = 25^3 - 6x^2 + 7x - 88 $$
 
-f = @(x) ln(x);
-g = @(x) 25.*x.^2 - 6.*x.^2 + 7.*x - 88;
+clear
+
+f   = @(x) log(x);
+
+fp  = { @(x) 0
+        @(x) (x-1)
+        @(x) (x-1) - (x-1).^2 ./2
+        @(x) (x-1) - (x-1).^2 ./2 + (x-1).^3 ./3
+      };
+
+dfp = { @(x) 0
+        @(x) 1
+        @(x) 2 - x
+        @(x) x.^2 - 3*x - 3
+      };
+
+g   = @(x) 25*x.^3 - 6*x.^2 + 7*x - 88;
+
+gp  = { @(x) x 
+      };
+
+dgp = { @(x) 0
+      };
+
+for i=1:4, 
+    froot(i) = newton(fp{i},dfp{i},3, 10^-4, 25);
+    % groot(i) = newton(gp{i},dfp{i},3, 10^-4);
+end
+
+fzero(fp{1},3)
+
+froot
 
 %% Newton's Method vs Bisection: $$ f{x} = 1 + \sin{x} $$
 % Bisection fails for problems that do not cross the origin or the
