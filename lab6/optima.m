@@ -18,3 +18,19 @@ x_max = golden(g,1,2)
 % Plot the function and the maximum to visually inspect the result
 figure(1);
 plot(x,g(x),x_max,g(x_max),'r*')
+
+%% RosenBrock
+clear
+
+% Implement the rosenbrock function as defined in the problem
+r = @(x_1, x_2) (1 - x_1).^2 + 100*(x_2 - x_1.^2).^2;
+
+% Calculate values of Z to enable plotting the function
+range = 2;
+step  = 0.1;
+[X,Y] = meshgrid(-range:step:range);
+Z     = size(X);
+Z     = r(X,Y);
+
+figure(2);
+surf(X,Y,Z);
