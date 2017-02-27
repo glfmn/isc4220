@@ -20,7 +20,7 @@ function [ x, err, its ] = bisection( f, a, b, converge )
 
 if nargin < 4, converge = @(a,b) abs(a-b) < 10^-8; end
 
-if a*b > 0, warning('Improper bounds, a, b must change signs.'); end
+if f(a)*f(b) > 0, error('f(a), f(b) must change signs.'); end
 
 next = @(a,b) (a+b)/2;
 its  = 0;
