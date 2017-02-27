@@ -2,15 +2,14 @@ function [ x, fx, its ] = bfgs( f, gf, x, k, converge )
 %BFGS finds a minimum of a multi-dimensional function with the BFGS method.
 %   To calculate the maximum, simply pass in -gradient, and leave f as is.
 %
-%   BFGS(f, gf, x) calculates the minimum of f--where gradient is f's
-%   gradient function--from initial guess x where:
-%   x is a column vector
-%   f is a function that accepts a vector size(x) and returns a scalar
-%   gf is the gradient of f and accepts a vector size(x) and returns a
-%   vector size(x)
+%   BFGS(f, gf, x) calculates the minimum of f--where gf is f's gradient 
+%   function--from initial guess x where:
+%   x  is a column vector
+%   f  is a function that accepts a vector size(x) and returns a scalar
+%   gf accepts a vector size(x) and returns a vector size(x)
 %   BFGS(f,gf,x,k) will exit after performing k iterations, defaults to 50.
 %   BFGS(f,gf,x,k,converge) will finish iterations when convege(x)
-%   evaluates to true; by default, 
+%   evaluates to true; by default,
 %
 %       converge = @(x) norm(gf(x)) < 10^-3
 %   
@@ -22,6 +21,9 @@ function [ x, fx, its ] = bfgs( f, gf, x, k, converge )
 %   x is the vector that produces the minimum
 %   fx = f(x)
 %   k is the number of iterations
+%
+%   For 1D optimization, simply pass the first derivative of f instead of
+%   the gradient, and pass a scalar value as x.
 
 % Set default arguments
 if nargin < 4, k        = 50;                       end
