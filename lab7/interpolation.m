@@ -36,3 +36,35 @@ hold off;
 
 legend('Gamma function','Splines','Sample points');
 title('Gamma function and interpolations');
+
+%% Successive Parabolic Optimization
+%
+%
+%
+clear
+
+%%%
+% Define datasets based on the three points described in the problem:
+%
+%  (1,3), (2,5), (3,3)
+%
+x = [1 2 3];
+f = [3 5 3];
+%%%
+% Calculate the maximum according to the formula to test against.
+xmax = (f(1)*(x(1)^2-x(2)^2)+f(2)*(x(3)^2-x(1)^2)+f(3)*(x(2)^2-x(1)^2))...
+     / 2* (f(1)*(x(2)-x(3)) +  f(2)*(x(3)-x(1)) + f(3)*(x(1)-x(2)) );
+
+%%%
+% Plot the datasets to visually inspect the result, comparing the original
+% dataset's points to the value of xmax and the maximum of the
+% interpolated polynomial.
+
+figure(2);
+
+hold on;
+plot(x,f,'ok');
+hold off;
+
+title('Successive Parabolic Optimization');
+legend('sample points');
