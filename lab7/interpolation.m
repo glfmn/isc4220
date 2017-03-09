@@ -43,7 +43,10 @@ title('Gamma function and interpolations');
 
 %% Successive Parabolic Optimization
 %
-%
+% By finding the interpolated funciton between the three points of the
+% polynomial, we can identify the maximum of a parabola and check against
+% the successive optimization formula for determining the x-coordinates of
+% the maximum.
 %
 clear
 
