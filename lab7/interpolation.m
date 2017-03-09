@@ -30,12 +30,10 @@ yd = dd(x,f,xs);
 % functions.
 figure(1);
 hold on;
-
 plot(xs,ys);     % intrinsic gamma
 plot(xs,yi);     % interp1
 plot(xs,yd);     % Divided difference interpolation
 plot(x,f,'ok');  % Data points
-
 hold off;
 
 legend('Gamma function','Splines','Divided Difference','Sample points');
@@ -59,8 +57,21 @@ x = [1 2 3];
 f = [3 5 3];
 %%%
 % Calculate the maximum according to the formula to test against.
-xmax = (f(1)*(x(1)^2-x(2)^2)+f(2)*(x(3)^2-x(1)^2)+f(3)*(x(2)^2-x(1)^2))...
-     / 2* (f(1)*(x(2)-x(3)) +  f(2)*(x(3)-x(1)) + f(3)*(x(1)-x(2)) );
+numerator = ...
+    ( f(1)*(x(2)^2-x(3)^2)...
+    + f(2)*(x(3)^2-x(1)^2)...
+    + f(3)*(x(1)^2-x(2)^2)...
+    );
+denomenator = ...
+     ( f(1)*(x(2)-x(3))...
+     + f(2)*(x(3)-x(1))...
+     + f(3)*(x(1)-x(2))...
+     );
+xmax = numerator/(2*denomenator);
+
+xs = linspace(0.5,3.5,50);
+fs = dd(x,f,xs);
+
 
 %%%
 % Plot the datasets to visually inspect the result, comparing the original
@@ -71,7 +82,9 @@ figure(2);
 
 hold on;
 plot(x,f,'ok');
+plot(xs,fs);
+plot(xmax,5,'+r')
 hold off;
 
 title('Successive Parabolic Optimization');
-legend('sample points');
+legend('sample points','interpolated','max');
