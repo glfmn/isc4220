@@ -6,7 +6,9 @@
 %%
 %% Gamma Function
 %
-%
+% Use the values of the gamma function from 1 to 5 to interpolate the
+% function using the built in splines interpolation, and my implementation
+% of divided difference interpolation to test the results.
 %
 clear
 
@@ -17,9 +19,10 @@ f = [1 1 2 6 24];
 
 %%%
 % Define interpolation range and calculate interpolated values.
-xs = 0.1:0.1:6;
+xs = linspace(1,6,100);
 ys = gamma(xs);
 yi = interp1(x,f,xs,'spline');
+yd = dd(x,f,xs);
 
 %%%
 % Plot interpolated values alongside original funciton to inspect the
@@ -30,11 +33,12 @@ hold on;
 
 plot(xs,ys);     % intrinsic gamma
 plot(xs,yi);     % interp1
-plot(x,f,'ok'); % Data points
+plot(xs,yd);     % Divided difference interpolation
+plot(x,f,'ok');  % Data points
 
 hold off;
 
-legend('Gamma function','Splines','Sample points');
+legend('Gamma function','Splines','Divided Difference','Sample points');
 title('Gamma function and interpolations');
 
 %% Successive Parabolic Optimization
