@@ -73,7 +73,7 @@ Z     = r(X,Y);
 
 %%%
 % Calculate the minimum
-[min, fmin, k] = bfgs(r_,gr,[-1;1],50);
+[min, fmin, k] = bfgs(r_,gr,[-1;1],122);
 x = min(1); y = min(2);
 fprintf('Min %g at (%g,%g)\n',fmin,x,y);
 
