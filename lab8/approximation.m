@@ -70,4 +70,44 @@ ts = linspace(0,1,50);
 figure(1);
 plot(xs,ys,'ro',ts,m1(c(1),c(2),ts),'b');
 title('Model 1: Linear Least Squares');
-legend('data','fit');
+legend('Data','Fitted Model');
+
+%%
+% Using non linear least squares we can take the model:
+m2 = @(a,b,t) a.*t + 2*exp(b.*t);
+%%%
+% And minimize the squared error term using a multi-dimensional
+% optimization method such as bfgs.  The model is parameterized in terms of
+% t, a, and b, where a and b are the parameters we hope to adjust to
+% minimize the squared error.
+
+%%%
+% Define cost function and gradients as functions that take coefficient
+% vectors of the parameters to minimize.
+cost = @(c)  sum( (ys - m2(c(1),c(2),xs)).^2 );
+
+% Define gradient of cost function for bfgs
+gradCost = @(c) [
+    sum(2*xs .* (m2(c(1),c(2),xs) - ys) );
+    sum(4*xs.*exp(2*c(2)*xs) .* (m2(c(1),c(2),xs) - ys) )
+];
+
+% Report first two iterations
+min = bfgs(cost, gradCost, [-1; 1],1); % First iteration
+fprintf('\nIteration 1: a:%g b:%g\n',min(1),min(2));
+min = bfgs(cost, gradCost, [-1; 1],2); % Second iteration
+fprintf('\nIteration 2: a:%g b:%g\n',min(1),min(2));
+
+% Perform non-linear least-squares and report solution
+min = bfgs(cost, gradCost, [-1; 1]);
+fprintf('\nSolution: a:%g b:%g\n',min(1),min(2));
+
+% Report minimum gradient value
+minGrad = gradCost(min);
+fprintf('\nMinimum Gradient: [ %g %g ]\n', minGrad(1),minGrad(2));
+
+% Plot results to inspect fitting
+figure(2);
+plot(xs,ys,'ro',ts,m2(min(1),min(2),ts),'b');
+title('Model 2: Non-Linear Least Squares')
+legend('Data','Converged Solution');
