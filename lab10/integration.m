@@ -106,3 +106,19 @@ I1 = gaussQuad(i,-1,1);
 I2 = gaussQuad(i,0,2);
 
 fprintf('Integral from -1 to 1: %g\nIntegral from  0 to 2: %g\n',I1,I2);
+
+%% Infinite bounds in integrals
+% To evaluate the integral $\int_{1}^{\inf} \frac_{\sin(x)}{x^2} dx$ we may
+% choose a numerial integration method such as Gauss Laguerre or Gauss
+% Hermite which can accomodate bounded integrals with infinite bounds.
+
+%% Double Integarls
+% To calculate the integral of
+% $\int_{0}^{1}\int_{0}^{1} e^{−x_1^3 +x_2^3} dx_1 dx_2$ it is possible to
+% perform standard numerical integration as the bounds of the double 
+% integral are very simple.
+%
+% For $\iint_D e^{−x_1^3 +x_2^3} \,dx_1\,dx_2$, where 
+% $D: x_1^2 + 2x_2^2 \let 1$ best suits monte carlo methods because of the
+% complicated bounds of integration.  Monte carlo methods can handle
+% arbitrary bounds.
