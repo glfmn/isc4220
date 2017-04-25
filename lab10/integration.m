@@ -42,7 +42,7 @@ plot(ns, rerr, ns,aerr);
 % refined answer given the values already calculated, and compare with full
 % romberg function.
 
-% successive refinement on approximations
+% refinement on approximations
 for m = numel(approx):-1:2
     d = 4^(m-1);
     approx(m) = (d*approx(m) - approx(m-1)) / (d-1);
@@ -63,5 +63,36 @@ title('Integration error with trapezoidal rule for sqrt(t)log(t)');
 xlabel('n');
 ylabel('error');
 legend('relative error','absolute error','romberg refined');
+hold off;
 
+%% $$ erf $$ & $$ exp(-x^2) $$
+clear
+
+%%%
+% Implement the function we hope to integrate, caclulate the exact
+% integral, and estimate the integral with simpson's rule and Gauss
+% Quadrature.
+
+i = @(t) exp(-t.^2);
+exact = sqrt(pi)/2 * erf(2);
+
+I1 = simpson(i,0,2);
+I2 = gaussQuad(i,0,2);
+
+%%%
+% Compare Simpson's 1/3 rule and Gauss Quadrature with 4 segments in each
+% method.
+
+figure(2);
+hold on;
+
+plot(4,abs(I1-exact),'b*',4,abs(I2-exact),'r*');
+text(4.05,abs(I1-exact), ['absolute error = ' num2str(I1-exact)]);
+text(4.05,abs(I2-exact), ['absolute error = ' num2str(I2-exact)]);
+axis([3.5 5 -0.1, 0.3]);
+
+title('Integration error, Simpson''s 1/3 rule vs Gauss Quadrature');
+xlabel('n');
+ylabel('error');
+legend('simpson''s rule','Gauss Quadrature');
 hold off;
