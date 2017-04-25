@@ -96,3 +96,13 @@ xlabel('n');
 ylabel('error');
 legend('simpson''s rule','Gauss Quadrature');
 hold off;
+
+%% Evaluating integrals with Gauss Quadrature
+clear
+
+i = @(t) 1 ./ (exp(t) + exp(-t)); % from -1 to 1, and from 0 to 2
+
+I1 = gaussQuad(i,-1,1);
+I2 = gaussQuad(i,0,2);
+
+fprintf('Integral from -1 to 1: %g\nIntegral from  0 to 2: %g\n',I1,I2);
