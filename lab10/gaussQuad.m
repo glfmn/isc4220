@@ -1,14 +1,16 @@
-function [ I ] = gaussQuad( f, a, b, n )
+function [ I, w ] = gaussQuad( f, a, b, n )
 %GAUSSQUAD estimates integrals with gauss quadrature.
 %
 %   GAUSSQUAD(f,n) integrate function f between 0 and 1 with n nodes
 %   GAUSSQUAD(f,a,b) integrate funtion f between a and b with four nodes
 %   GAUSSQUAD(f,a,b,n) integrate function f between a and b with n nodes
 %
-%   I = GAUSSQUAD(...) I is the estimate of the integral of f
+%   [I, w]= GAUSSQUAD(...) I is the estimate of the integral of f and w are
+%   the weights calculated in the problem.
 %
 %   Adapted from:
-%       Trefethen, “Is Gauss Quadrature better than Clenshaw-Curtis?
+%       Trefethen, "Is Gauss Quadrature better than Clenshaw-Curtis?" as
+%       presented in class notes for ISC4220, with Sachin Shanbhag
 
 if exist('f','var') == 0, error('Must provide function to integrate'); end
 if nargin < 3,            n = a; a = 0;                                end
@@ -35,4 +37,3 @@ w = 2*V(1,i).^2;  % weights
 I = w*feval(f,t(x)); % the integral
 
 end
-
