@@ -74,36 +74,48 @@ legend('Data','Fitted Model');
 
 %%
 % Using non linear least squares we can take the model:
+%
+% $$m(t,\mathbf{a}) = a_0t + 2e^{a_1t}$$
 m2 = @(a,b,t) a.*t + 2*exp(b.*t);
 %%%
 % And minimize the squared error term using a multi-dimensional
 % optimization method such as bfgs.  The model is parameterized in terms of
 % t, a, and b, where a and b are the parameters we hope to adjust to
-% minimize the squared error.
-
-%%%
-% Define cost function and gradients as functions that take coefficient
-% vectors of the parameters to minimize.
-cost = @(c)  sum( (ys - m2(c(1),c(2),xs)).^2 );
+% minimize the squared error. Using the cost function and gradient:
+%
+% $$r = m(t,\mathbf{a})-y$$
+%
+% $$\epsilon^2 = \sum_{i=1}^{n} r_i^2$$
+%
+% $$
+% \[ \nabla\epsilon^2=\left[ \begin{array}{ccc}
+% \sum_{i=1}^{n}-2r_it_i \\ 
+% \sum_{i=1}^{n}-4r_it_ie^{a_0t}
+% \end{array} \right] \]
+% $$
+r = @(c,x,y) m2(c(1),c(2),x) - y;
+residual = @(c) sum(r(c,xs,ys).^2);
 
 % Define gradient of cost function for bfgs
-gradCost = @(c) [
-    sum(2*xs .* (m2(c(1),c(2),xs) - ys) );
-    sum(4*xs.*exp(2*c(2)*xs) .* (m2(c(1),c(2),xs) - ys) )
+drda = @(c,x,y) -2.*r(c,x,y) .* x;
+drdb = @(c,x,y) -4.*r(c,x,y) .* x .* exp(c(2).*x);
+gradient = @(c) [
+    sum(drda(c,xs,ys));
+    sum(drdb(c,xs,ys))
 ];
 
 % Report first two iterations
-min = bfgs(cost, gradCost, [-1; 1],1); % First iteration
+min = bfgs(residual, gradient, [-1; 1],1); % First iteration
 fprintf('\nIteration 1: a:%g b:%g\n',min(1),min(2));
-min = bfgs(cost, gradCost, [-1; 1],2); % Second iteration
+min = bfgs(residual, gradient, [-1; 1],2); % Second iteration
 fprintf('\nIteration 2: a:%g b:%g\n',min(1),min(2));
 
 % Perform non-linear least-squares and report solution
-min = bfgs(cost, gradCost, [-1; 1]);
+min = bfgs(residual, gradient, [-1; 1]);
 fprintf('\nSolution: a:%g b:%g\n',min(1),min(2));
 
 % Report minimum gradient value
-minGrad = gradCost(min);
+minGrad = gradient(min);
 fprintf('\nMinimum Gradient: [ %g %g ]\n', minGrad(1),minGrad(2));
 
 % Plot results to inspect fitting
